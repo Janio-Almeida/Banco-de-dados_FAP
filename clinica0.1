@@ -1,0 +1,38 @@
+CREATE DATABASE clinica_medica;
+use clinica_medica;
+
+CREATE TABLE Medico 
+( 
+ genero varchar(10),  
+ Nome varchar(40),  
+ Especialidade varchar(50), 
+ Crm INT PRIMARY KEY,  
+ Fixo INT,  
+ Movel INT,  
+ Rua varchar(50),  
+ Bairro varchar(50),  
+ Numero_postal varchar(10)
+); 
+
+CREATE TABLE paciente 
+( 
+ Data_de_nascimento DATE,  
+ Genero varchar(10),  
+ Nome varchar(30),  
+ Cpf VARCHAR(11) UNIQUE PRIMARY KEY,  
+ Movel INT,  
+ Fixo INT
+); 
+
+CREATE TABLE consulta 
+( 
+ Receita varchar(100),  
+ Id_consulta INT PRIMARY KEY,  
+ Crm_fk INT,  
+ Cpf INT,  
+ Marcação DATE,  
+ Data DATE,  
+ Hora int,
+foreign key (Crm) REFERENCES Medico (Crm),  
+foreign key (Cpf) REFERENCES paciente (Cpf)
+); 
