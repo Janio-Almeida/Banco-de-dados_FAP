@@ -1,0 +1,61 @@
+create database clinica_medica;
+use clinica_medica;
+
+create table medico(
+crm varchar(20) PRIMARY KEY not null,
+nome varchar(60) not null,
+genero varchar(10),
+telefone_fixo varchar(20),
+telefone_movel varchar(20),
+endereco_rua varchar(40),
+endereco_bairro varchar(30),
+endereco_numero_postal varchar(10),
+endereco_numero_casa varchar(10),
+especialidade varchar(40)
+);
+SELECT * FROM medico;
+
+insert into medico(crm, nome, genero, telefone_fixo, telefone_movel, endereco_rua, endereco_bairro, endereco_numero_postal, endereco_numero_casa, especialidade)
+values('12345','João miguel','M','3469-5020', null, 'Rua josé braz moscow', 'Piedade', '54.750.280', '1020', 'Cardiologia'); 
+
+insert into medico(crm, nome, genero, telefone_fixo, telefone_movel, endereco_rua, endereco_bairro, endereco_numero_postal, endereco_numero_casa, especialidade)
+values('67890', 'Maria Joana', 'F', null, '(81)99515-1820', 'Av.conselheiro aguiar', 'Boa viagem', '54370-480', '5040', 'Neurologista');
+
+INSERT INTO medico (crm, nome, genero, telefone_fixo, telefone_movel, endereco_rua, endereco_bairro, endereco_numero_postal, endereco_numero_casa, especialidade)
+VALUES ('53674', 'Ana Paula', 'F', null, '(81)98765-4321', 'Rua das Flores', 'Centro', '12345-678', '102', 'Ginecologista');
+
+
+create table paciente(
+cpf varchar(14) primary key,
+nome varchar(100),
+genero varchar(10),
+data_de_nascimento date,
+telefone_fixo varchar(20),
+telefone_movel varchar(20)
+);
+SELECT * FROM paciente;
+insert into paciente(cpf, nome, genero,data_de_nascimento, telefone_fixo, telefone_movel)
+values('103.587.894-78', 'Noah da Silva', 'M', '1987-05-15', null, '(87)99897-3040');
+
+INSERT INTO paciente (cpf, nome, genero, data_de_nascimento, telefone_fixo, telefone_movel)
+VALUES ('111.222.333-44', 'Maria Silva', 'F', '1990-08-25', '1122-3344', '(79)95522-1133');
+
+INSERT INTO paciente (cpf, nome, genero, data_de_nascimento, telefone_fixo, telefone_movel)
+VALUES ('222.333.444-55', 'Ana Souza', 'F', '1985-03-12', '9988-7766', '(19)93344-5566');
+
+
+create table consulta(
+id_consulta int(20) primary key,
+marcacao_data DATE,
+marcacao_hora time,
+receita varchar(100),
+cpf_paciente varchar(14),
+crm_medico varchar(20),
+foreign key (cpf_paciente) references paciente (cpf),
+foreign key (crm_medico) references medico (crm)
+);
+
+select * from consulta;
+
+INSERT INTO consulta(id_consulta, marcacao_data, marcacao_hora, receita, cpf_paciente, crm_medico)
+values('00001', '2024-07-15', '16:10', 'tomar o remedio 2x ao dia', '103.587.894-78','12345');
